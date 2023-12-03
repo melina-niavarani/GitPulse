@@ -3,7 +3,7 @@ import Navigate from "./Navigate"
 
 function Header() {
     return(
-        <header >
+        <header className="header-bg">
             <Navbar/>
             <Navigate/>
         </header>

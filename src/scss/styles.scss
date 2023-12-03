@@ -1,2 +1,26 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit !important;
+}
+
+:root {
+    --header-bg: #F6F8FA;
+    --number-bg: #DEE3E8;
+    --fs-sm: 0.75rem;
+}
+
+.header-bg {
+    background-color: var(--header-bg);
+}
+.number {
+    background-color: var(--number-bg);
+    font-size: var(--fs-sm);
+}
