@@ -2,18 +2,16 @@
 
 import Header from "./components/Header/Header"
 import Body from "./components/Body/Body";
+import Footer from "./components/Footer/footer";
 
-import { requestApi } from "./api/requestApi.js";
 
 export function App() {
 
-    
     return (
         <div>
-            <body>
-                <Header/>
-                <Body/>
-            </body>
+            <Header/>
+            <Body/>
+            <Footer/>
         </div>
     )
 }

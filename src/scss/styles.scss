@@ -9,12 +9,24 @@
 
 a {
     color: inherit !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    text-decoration: underline !important;
+    color: var(--cl-hover) !important;
 }
 
 :root {
     --header-bg: #F6F8FA;
     --number-bg: #DEE3E8;
     --fs-sm: 0.75rem;
+    --cl-muted: #656D76;
+    --cl-hover: #0A69DA;
+}
+
+.fs-small {
+    font-size: 12px;
 }
 
 .header-bg {
@@ -23,4 +35,11 @@ a {
 .number {
     background-color: var(--number-bg);
     font-size: var(--fs-sm);
+}
+.color-muted {
+    color: var(--cl-muted);
+}
+.octicon {
+    display: inline-clock;
+    fill: var(--cl-muted)
 }
