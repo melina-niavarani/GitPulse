@@ -1,5 +1,5 @@
-import ProfileSidbar from "./ProfileSidbar"
-import ActivitySidbar from "./ActivitySidbar"
+import ProfileSidbar from "./ProfileSidbar/ProfileSidbar"
+import ActivitySidbar from "./ActivitySidbar/ActivitySidbar"
 
 function Main() {
     return (

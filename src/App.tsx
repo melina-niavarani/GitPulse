@@ -1,18 +1,16 @@
-
-
 import Header from "./components/Header/Header"
-import Body from "./components/Body/Body";
-import Footer from "./components/Footer/footer";
+import Main from "./components/Main/Main"
+import Footer from "./components/Footer/Footer";
 
 
 export function App() {
 
     return (
-        <div>
+        <body>
             <Header/>
-            <Body/>
+            <Main/>
             <Footer/>
-        </div>
+        </body>
     )
 }
 
