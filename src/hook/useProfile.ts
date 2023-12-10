@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { requestUserData, UserInfo } from "../api/requestApi";
 
-function ProfileSidbar() {
+function useProfile() {
     const [user, setUser] = useState<UserInfo | null >({
         name: "",
         email: "",
@@ -31,4 +31,12 @@ function ProfileSidbar() {
             })
 
     }, []);
+
+    return {
+        user: user,
+        isLoading: isLoading,
+        hasError: hasError,
+    }
 }
+
+export { useProfile }; 

@@ -1,6 +1,6 @@
 function RepositoriesList(props) {
     return(
-        <li className="card col-md-6 flex">
+        <li className="card col-6" >
             <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center">
                     <h5 className="card-title text-primary">{props.title}</h5>

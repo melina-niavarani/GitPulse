@@ -1,27 +1,8 @@
-import { useEffect, useState } from "react";
-import { requestRepositories, RepositoriesInfo } from "../../../api/requestApi"
+import { useRepositories } from "../../../hook/useRepositories";
 import RepositoriesList from "./RepositoriesList";
 
 function ActivitySidbar() {
-    const [repositories, setRepositories ] = useState([])
-    const [isLoading, setLoading] = useState(true);
-    const [hasError, setError] = useState(false)
-
-    useEffect(()=>{
-        setLoading(true);
-        setError(false);
-        requestRepositories()
-        .then((data) => {
-            setRepositories(data)
-        })
-        .catch((e) => {
-            setError(true)
-            console.log({ e })
-        })
-        .finally(() => {
-            setLoading(false)
-        })
-    },[])
+    const { repositories, isLoading, hasError } = useRepositories();
 
     return (
         <div className="col-8 mt-5">
@@ -31,7 +12,7 @@ function ActivitySidbar() {
             </div>
             <div className="row mt-3">
                 <div className="my-3">
-                    <ul className="list-unstyled d-flex flex-column flex-md-row flex-wrap ">
+                    <ul className="list-unstyled d-flex flex-column flex-md-row flex-wrap">
                         {repositories.map((repos) => {
                             return(
                                 <RepositoriesList
