@@ -10,23 +10,25 @@ function ActivitySidbar() {
                 <span>Popular repositories</span>
                 <a className="text-primary text-decoration-none" href="#">customiz your pins</a>
             </div>
-            <div className="row mt-3">
+            <div className="my-3">
+                <ul className="list-unstyled d-flex flex-column flex-md-row flex-wrap">
+                    {repositories.map((repos) => {
+                        return(
+                            <RepositoriesList
+                                key={repos.id}
+                                title={repos.name}
+                                description={repos.description}
+                                status={repos.private}
+                                language={repos.language}
+                                fork={repos.forks_count}
+                                star={repos.stargazers_count}
+                            />
+                        )
+                    })}
+                </ul>
+
                 <div className="my-3">
-                    <ul className="list-unstyled d-flex flex-column flex-md-row flex-wrap">
-                        {repositories.map((repos) => {
-                            return(
-                                <RepositoriesList
-                                    key={repos.id}
-                                    title={repos.name}
-                                    description={repos.description}
-                                    status={repos.private}
-                                    language={repos.language}
-                                    fork={repos.forks_count}
-                                    star={repos.stargazers_count}
-                                />
-                            )
-                        })}
-                    </ul>
+
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ export interface UserInfo {
   blog: string;
 }
 
-const personal_token = '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'
+const personal_token = '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'
 const username = "mojtabast"
 
 const octokit = new Octokit({
