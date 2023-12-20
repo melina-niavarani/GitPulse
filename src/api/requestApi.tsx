@@ -9,15 +9,17 @@ export interface UserInfo {
   email: string;
   blog: string;
 }
-
+// get new Token:  https://github.com/settings/tokens/new?scopes=repo
 const personal_token = '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'
-// const username = "melina-niavarani"
+
+const username = "melina-niavarani"
+export { username }
 
 const octokit = new Octokit({
   auth: personal_token
 })
 
-export async function requestUserData(username: string): Promise<UserInfo>{
+export async function requestUserData(){
   const user_info = await octokit.request('GET /users/{username}', {
     username: username,
     headers: {
@@ -39,7 +41,7 @@ export interface RepositoriesInfo {
   stargazers_count: number;
 }
 
-export async function requestRepositories(username: string){
+export async function requestRepositories(){
   const user_repos = await octokit.request('GET /users/{username}/repos', {
     username: username,
     headers: {

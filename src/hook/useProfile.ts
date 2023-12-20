@@ -1,58 +1,33 @@
-import { useEffect, useState, useReducer } from "react";
-import { requestUserData, UserInfo } from "../api/requestApi";
+import { useEffect, useReducer } from "react";
+import { requestUserData } from "../api/requestApi";
 
-const username = "melina-niavarani"
-interface Action {
-    type: string;
-    payload: any
-}
-
-interface State {
-    user: UserInfo,
-    isLoading: boolean,
-    hasError: boolean
-}
+import { Action, State } from "../app.model";
 
 function reducer(state: State, action: Action){
-    if (action.type === "update_loading") {
-        const nextLoading = action.payload.isLoading;
-        return {
-            ...state,
-            isLoading: nextLoading,
-        }
+    switch(action.type) {
+        case "update_loading":
+            return {
+                ...state,
+                isLoading: action.payload.isLoading,
+            }
+        case "update_error":
+            return {
+                ...state,
+                hasError: action.payload.hasError,
+            };
+        case "update_user":
+            return {
+                ...state,
+                user: action.payload.user,
+            }; 
+        default: 
+            return state
     }
-    if (action.type === "update_error") {
-        const nextError = action.payload.hasError;
-        return {
-            ...state,
-            hasError: nextError,
-        }
-    }
-    if (action.type === "update_user") {
-        const nextUser = action.payload.user;
-        return {
-            ...state,
-            user: nextUser,
-        }
-    }
-    return state;
+ 
 }
-  
-
   
 
 function useProfile() {
-    // const [user, setUser] = useState<UserInfo | null >({
-    //     name: "",
-    //     email: "",
-    //     blog: "",
-    //     login:  "",
-    //     avatar_url: "" ,
-    //     following: 0,
-    //     followers: 0,
-    // });
-    // const [isLoading, setLoading] = useState(true);
-    // const [hasError, setError] = useState(false);
 
 
     const initialState = {
@@ -78,7 +53,7 @@ function useProfile() {
                 hasError: false,
             }
         })
-        requestUserData(username)
+        requestUserData()
             .then((data) => {
                 // setUser(data)
                 dispatch({

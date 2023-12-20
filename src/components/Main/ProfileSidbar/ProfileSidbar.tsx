@@ -1,13 +1,18 @@
 import { useProfile } from "../../../hook/useProfile"
 
 function ProfileSidbar() {
+    
     const {user, isLoading, hasError} = useProfile()
     
     const profile_picture = user?.avatar_url;
 
+    const hasData = !hasError && !isLoading && user
+
     console.log(user)
     return(
         <div className="col-md-4 px-2">
+            {hasError? "An error has been occured": null}
+
             <div className="d-flex flex-row flex-md-column">
                 <img alt="avatar-photo" src={profile_picture} width="260" height="260" className="d-block mx-auto shadow-sm h-auto rounded-circle width-100 border"></img>
                 <h1>
