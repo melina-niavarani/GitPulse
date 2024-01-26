@@ -24,10 +24,19 @@ a:hover {
     --cl-muted: #656D76;
     --cl-hover: #0A69DA;
 }
-
+.bg-indigo-600 {
+    background-color: $indigo-600; 
+}
+.bg-orange-500 {
+    background-color: $orange-500; 
+}
 .fs-small {
     font-size: 12px;
 }
+.fs-md {
+    font-size: 14px;
+}
+
 
 .header-bg {
     background-color: var(--header-bg);
@@ -42,4 +51,22 @@ a:hover {
 .octicon {
     display: inline-clock;
     fill: var(--cl-muted)
+}
+.language-color{
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--borderColor-muted, var(--color-primer-border-contrast));
+    border-radius: 50%;
+    // background-color: #0A69DA;
+    display: inline-block;
+}
+
+.nav-link-active {
+    border-bottom: 2px solid #fe9600; 
+    font-weight: 500;
+}
+  
+ 
+.nav-link {
+    text-decoration: none;
 }

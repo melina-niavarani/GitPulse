@@ -1,4 +1,3 @@
-
 import AppRouter from "../../../router/AppRouter.js"
 
 
@@ -9,5 +8,6 @@ function ActivitySidbar() {
         </div>
     )
 }
+
 
 export default ActivitySidbar

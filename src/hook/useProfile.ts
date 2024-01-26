@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { requestUserData } from "../api/requestApi";
+import { requestUserData, UserInfo } from "../api/requestApi";
 
 import { Action, State } from "../app.model";
 
@@ -27,7 +27,7 @@ function reducer(state: State, action: Action){
 }
   
 
-function useProfile() {
+function useProfile(username: string) {
 
 
     const initialState = {
@@ -45,17 +45,14 @@ function useProfile() {
                 isLoading: true,
             }
         })
-        // setLoading(true);
-        // setError(false);
         dispatch({
             type: "update_error",
             payload: {
                 hasError: false,
             }
         })
-        requestUserData()
+        requestUserData(username)
             .then((data) => {
-                // setUser(data)
                 dispatch({
                     type: "update_user",
                     payload: {
@@ -64,7 +61,6 @@ function useProfile() {
                 })
             })
             .catch((e) => {
-                // setError(true)
                 dispatch({
                     type: "update_error",
                     payload: {
@@ -75,7 +71,6 @@ function useProfile() {
                 
             })
             .finally(() => {
-                // setLoading(false)
                 dispatch({
                     type: "update_loading",
                     payload: {
@@ -85,12 +80,6 @@ function useProfile() {
             })
 
     }, []);
-
-    // return {
-    //     user: user,
-    //     isLoading: isLoading,
-    //     hasError: hasError,
-    // }
     return {
         user: data.user,
         isLoading: data.isLoading,

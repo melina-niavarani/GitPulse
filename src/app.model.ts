@@ -1,4 +1,4 @@
-import { UserInfo } from "./api/requestApi";
+import { UserInfo, RepositoriesInfo } from "./api/requestApi";
 
 export class Action {
     type: string;
@@ -7,6 +7,11 @@ export class Action {
 
 export class State {
     user: UserInfo; 
+    isLoading: boolean;
+    hasError: boolean
+}
+export class Repo {
+    repository: RepositoriesInfo; 
     isLoading: boolean;
     hasError: boolean
 }

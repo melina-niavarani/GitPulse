@@ -10,7 +10,8 @@ export interface UserInfo {
   blog: string;
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
-const personal_token = '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'
+
+const personal_token = "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"
 
 const username = "melina-niavarani"
 export { username }
@@ -19,14 +20,14 @@ const octokit = new Octokit({
   auth: personal_token
 })
 
-export async function requestUserData(){
+export async function requestUserData(username:string){
   const user_info = await octokit.request('GET /users/{username}', {
     username: username,
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
-
+  console.log('userinfo', user_info)
   return user_info.data;
 }
 
@@ -41,7 +42,7 @@ export interface RepositoriesInfo {
   stargazers_count: number;
 }
 
-export async function requestRepositories(){
+export async function requestRepositories(username:string){
   const user_repos = await octokit.request('GET /users/{username}/repos', {
     username: username,
     headers: {
@@ -51,3 +52,5 @@ export async function requestRepositories(){
   console.log(user_repos)
   return user_repos.data;
 }
+
+

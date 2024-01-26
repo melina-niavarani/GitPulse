@@ -2,20 +2,23 @@
 import { BrowserRouter as Router , Route, Routes } from "react-router-dom";
 import { username } from "../api/requestApi"
 
-import Overview from '../views/Overview'
-import Repositories from '../views/Repositories' 
-
+import Overview from '../components/Main/ActivitySidbar/views/Overview'
+import Repositories from '../components/Main/ActivitySidbar/views/Repositories' 
+import Project from '../components/Main/ActivitySidbar/views/Project' 
+import Packages from "../components/Main/ActivitySidbar/views/Packages";
+import Stars from "../components/Main/ActivitySidbar/views/Stars";
 
 export default function AppRouter(){
     return (
         <Routes>
             <Route path="/" >
-                <Route index path={`${username}`} element={<Overview />} />
-                <Route path={`${username}/repositories`} element={<Repositories />} />
-                <Route  path={`${username}/projects`}  element={<Overview />}/>
-                <Route  path={`${username}/packages`}  element={<Overview />}/>
+                <Route index path={`:username`} element={<Overview />} />
+                <Route path={`:username/repositories`} element={<Repositories />} />
+                <Route  path={`:username/projects`}  element={<Project />}/>
+                <Route  path={`:username/packages`}  element={<Packages />}/>
+                <Route  path={`:username/Stars`}  element={<Stars />}/>
+                <Route  path={`:username/:repository`}  element={<Stars />}/>
             </Route>
         </Routes>
     )
 }
-
