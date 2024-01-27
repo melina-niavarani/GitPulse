@@ -6,6 +6,7 @@ import Project from '../components/Main/ActivitySidbar/views/Project'
 import Packages from "../components/Main/ActivitySidbar/views/Packages";
 import Stars from "../components/Main/ActivitySidbar/views/Stars";
 import SpecificRepository from "../components/Main/ActivitySidbar/views/SpecificRepository";
+import Issues from "../components/Main/ActivitySidbar/views/Issues";
 
 export default function AppRouter(){
     return (
@@ -17,6 +18,7 @@ export default function AppRouter(){
                 <Route  path={`:username/packages`}  element={<Packages />}/>
                 <Route  path={`:username/Stars`}  element={<Stars />}/>
                 <Route  path={`:username/:repository`}  element={<SpecificRepository/>}/>
+                <Route  path={`:username/:repository/issues`}  element={<Issues/>}/>
             </Route>   
         </Routes>
     )

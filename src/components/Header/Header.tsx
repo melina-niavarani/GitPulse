@@ -8,10 +8,11 @@ function Header() {
     const repository = useParams().repository;
     const location = useLocation()
     const isSpecificRepositoryRoute = location.pathname === `/${username}/${repository}`;
+    const issuesRoute = location.pathname === `/${username}/${repository}/issues`
     return(
         <header className="header-bg">
             <Navbar/>
-            {isSpecificRepositoryRoute ?
+            {isSpecificRepositoryRoute || issuesRoute ?
                <Toolbar /> : <Navigate/> 
             }
             {/* <Navigate/>  */}

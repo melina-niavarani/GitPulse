@@ -21,3 +21,9 @@ export class RepoDetails {
     isLoading: boolean;
     hasError: boolean
 }
+
+export class issues {
+    repository: RepositoriyDetails; 
+    isLoading: boolean;
+    hasError: boolean
+}

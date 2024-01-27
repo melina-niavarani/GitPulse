@@ -1,13 +1,24 @@
 import { useParams } from "react-router-dom"
 import { useProfile } from "../../hook/useProfile";
+import { useState } from "react";
+import { getSearchResult } from "../../api/requestApi";
 
 import OffcanvasBody from "./OffcanvasBody"
 
 function Navbar() {
     const username = useParams().username;
 
-    const {user, isLoading, hasError} = useProfile(username)
+    const {user, isLoading, hasError} = useProfile(username);
     const profile_picture = user?.avatar_url;
+
+    let visibility = false;
+    const [searchQuery, setSearchQuery] = useState("");
+    const queryString = 'q='+ searchQuery + encodeURIComponent('GitHub Octocat in:readme user:defunkt') ;
+    console.log(queryString)
+    const handleSearch = async () => {
+        const searchResult = await getSearchResult(queryString);
+        console.log("hi",searchResult);
+      };
 
    return (
     <nav className="navbar ">
@@ -31,11 +42,30 @@ function Navbar() {
                 <OffcanvasBody/>
             </div>
             <div className="d-flex gap-2 gap-md-4">
-                <button type="button"  className="btn btn-outline-secondary btn-sm d-flex align-items-center">
+                <button type="button" onClick={() => visibility = !visibility}  className=" btn btn-outline-secondary btn-sm d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="true">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
                         <path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path>
                     </svg>
                 </button>
+                <div className={`container-fluid dropdown-menu ${visibility ? 'search-form-visible' : ''}`}>
+                    <form 
+                        className="d-flex dropdown-item" 
+                        role="search"
+                        onChange={(e) => {
+                            e.preventDefault();
+                            handleSearch();
+                            // if (e.key === "Enter") {
+                            // }
+                        }}
+                    >
+                        <input 
+                            className="form-control me-2" 
+                            type="search" 
+                            placeholder="Search" 
+                            aria-label="Search" 
+                            onChange={(e) => setSearchQuery(e.target.value)}/>
+                    </form>
+                </div>
                 <div className="d-flex gap-2">
                     <button id="global-create-menu-button" className="btn btn-outline-secondary btn-sm d-none d-md-block">  
                         <span className="d-flex align-items-center">
@@ -63,9 +93,9 @@ function Navbar() {
                             <path d="M2.8 2.06A1.75 1.75 0 0 1 4.41 1h7.18c.7 0 1.333.417 1.61 1.06l2.74 6.395c.04.093.06.194.06.295v4.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25v-4.5c0-.101.02-.202.06-.295Zm1.61.44a.25.25 0 0 0-.23.152L1.887 8H4.75a.75.75 0 0 1 .6.3L6.625 10h2.75l1.275-1.7a.75.75 0 0 1 .6-.3h2.863L11.82 2.652a.25.25 0 0 0-.23-.152Zm10.09 7h-2.875l-1.275 1.7a.75.75 0 0 1-.6.3h-3.5a.75.75 0 0 1-.6-.3L4.375 9.5H1.5v3.75c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25Z"></path>
                         </svg>
                     </a>
-                    <span >
-                        <img src={profile_picture} alt="" sizes="32" height="32" width="32" data-view-component="true" className="d-block mx-auto shadow-sm h-auto rounded-circle width-100 "></img>
-                    </span>  
+                    <a href={`/${username}`}>
+                        <img src={profile_picture} alt="avatar-photo" sizes="32" height="32" width="32" data-view-component="true" className="d-block mx-auto shadow-sm h-auto rounded-circle width-100 "></img>
+                    </a>  
                 </div>
             </div>
         </div>
@@ -74,3 +104,4 @@ function Navbar() {
 }
 
 export default Navbar
+

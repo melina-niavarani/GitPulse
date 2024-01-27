@@ -26,7 +26,8 @@ export default function SpecificRepository(){
             });
     }, [username, repo_name])
 
-    const arrayOfLanguages = Object.entries(languages)
+    const arrayOfLanguages =  languages && typeof languages === 'object'? Object.entries(languages) : []
+    console.log(arrayOfLanguages)
 
     return(
         <div>
@@ -226,13 +227,15 @@ export default function SpecificRepository(){
                         <a className="fs-small text-primary" href="">Publish your first package</a>
                         <hr />
                         <h5>Languages</h5>
+                        
                         <Line 
-                            percent={(arrayOfLanguages[0][1]*100 / 28501)} 
+                            // percent={ (arrayOfLanguages[0][1]*100 / 28501)} 
                             strokeWidth={3} 
                             strokeColor="purple" 
                             trailWidth = {3}
                             trailColor = "red"
-                        />
+                        /> 
+                        
                         <div className="d-flex align-items-center justify-content-evenly">
                             {arrayOfLanguages.map(([language, percent]) => (
                                 <div key={percent} className="me-1 fw-bold fs-small">
