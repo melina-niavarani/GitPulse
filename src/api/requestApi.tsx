@@ -11,7 +11,7 @@ export interface UserInfo {
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
 
-const personal_token = "Your Token"
+const personal_token = "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"
 
 // const username = "melina-niavarani"
 // export { username }
@@ -76,3 +76,19 @@ export async function requestRepositoriesDetails(username: string, repo_name: st
   return repository_details;
 }
 
+
+export async function getLanguages(owner:string, repo:string) {
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/languages`;
+  try {
+      const response = await fetch(apiUrl);
+  
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.status} - ${response.statusText}`);
+      }
+      const languages = await response.json();
+      console.log(languages)
+      return languages;
+    } catch (error) {
+      console.error('Error fetching repository languages:', error.message);
+    }
+}
