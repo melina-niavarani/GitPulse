@@ -11,7 +11,7 @@ export interface UserInfo {
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
 
-const personal_token = "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"
+const personal_token = "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"
 
 
 const octokit = new Octokit({

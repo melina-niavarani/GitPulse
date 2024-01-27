@@ -10,8 +10,9 @@ export default function SpecificRepository(){
     const username =useParams().username;
     const repo_name = useParams().repository;
     const [languages, setLanguages] = useState([])
+    const [percents , setPercents] = useState([])
     const {repository, isLoading, hasError} = useRepositoriesDetails(username, repo_name)
-    console.log(repository.data)
+    console.log(languages)
 
     const repo_details = repository?.data
     const porofile_picture = repo_details?.owner.avatar_url;
@@ -19,15 +20,19 @@ export default function SpecificRepository(){
     useEffect(() => {
         getLanguages(username,repo_name)
             .then((data) => {
-                setLanguages(data)
+                const percents = Object.values(data)
+                const arrayOfLanguages = Object.entries(data)
+                setLanguages(arrayOfLanguages)
+                setPercents(percents)
             })
             .catch((error) => {
                 console.error("Error fetching languages:", error);
             });
     }, [username, repo_name])
 
-    const arrayOfLanguages =  languages && typeof languages === 'object'? Object.entries(languages) : []
-    console.log(arrayOfLanguages)
+    const sumOfValues = percents.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+   
 
     return(
         <div>
@@ -229,7 +234,7 @@ export default function SpecificRepository(){
                         <h5>Languages</h5>
                         
                         <Line 
-                            // percent={ (arrayOfLanguages[0][1]*100 / 28501)} 
+                            // percent={ (languages[0][1]*100 / 28501)} 
                             strokeWidth={3} 
                             strokeColor="purple" 
                             trailWidth = {3}
@@ -237,10 +242,10 @@ export default function SpecificRepository(){
                         /> 
                         
                         <div className="d-flex align-items-center justify-content-evenly">
-                            {arrayOfLanguages.map(([language, percent]) => (
+                            {languages.map(([language, percent]) => (
                                 <div key={percent} className="me-1 fw-bold fs-small">
                                     <span className="mx-2">{language}</span>
-                                    <span className="text-secondary">{(percent * 100 /28501).toFixed(1)} %</span>
+                                    <span className="text-secondary">{(percent * 100 /sumOfValues).toFixed(1)} %</span>
                                     
                                 </div>
                             ))}
