@@ -1,7 +1,14 @@
-import { username } from "../../api/requestApi"
+import { useParams } from "react-router-dom"
+import { useProfile } from "../../hook/useProfile";
+
 import OffcanvasBody from "./OffcanvasBody"
 
 function Navbar() {
+    const username = useParams().username;
+
+    const {user, isLoading, hasError} = useProfile(username)
+    const profile_picture = user?.avatar_url;
+
    return (
     <nav className="navbar ">
         <div className="container-fluid d-flex my-3">
@@ -57,7 +64,7 @@ function Navbar() {
                         </svg>
                     </a>
                     <span >
-                        <img src="https://avatars.githubusercontent.com/u/91658429?v=4" alt="" sizes="32" height="32" width="32" data-view-component="true" className="d-block mx-auto shadow-sm h-auto rounded-circle width-100 "></img>
+                        <img src={profile_picture} alt="" sizes="32" height="32" width="32" data-view-component="true" className="d-block mx-auto shadow-sm h-auto rounded-circle width-100 "></img>
                     </span>  
                 </div>
             </div>

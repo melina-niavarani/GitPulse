@@ -11,10 +11,10 @@ export interface UserInfo {
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
 
-const personal_token = "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"
+const personal_token = "Your Token"
 
-const username = "melina-niavarani"
-export { username }
+// const username = "melina-niavarani"
+// export { username }
 
 const octokit = new Octokit({
   auth: personal_token
@@ -53,4 +53,26 @@ export async function requestRepositories(username:string){
   return user_repos.data;
 }
 
+export interface RepositoriyDetails {
+  id: number;
+  name: string;
+  private: boolean;
+  description: string;
+  language: string;
+  fork: boolean;
+  forks_count: number;
+  stargazers_count: number;
+}
+
+// const repository = 'Calendar'
+export async function requestRepositoriesDetails(username: string, repo_name: string){
+  const repository_details = octokit.request('GET /repos/{username}/{repo}', {
+    username: username,
+    repo: repo_name,
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
+  return repository_details;
+}
 

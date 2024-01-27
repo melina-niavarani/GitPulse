@@ -1,8 +1,8 @@
 import { useRepositories } from "../../hook/useRepositories"
-import { username } from "../../api/requestApi"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function OffcanvasBody() {
+    const username = useParams().username
     const {repository} = useRepositories(username);
     const displayedRepositories = repository? repository.slice(0, 5) : [];
     const porofile_picture = repository[0]?.owner.avatar_url;

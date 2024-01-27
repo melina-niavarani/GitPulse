@@ -1,11 +1,11 @@
-import { username } from "../../../api/requestApi"
+import { useParams } from "react-router-dom";
 import { useProfile } from "../../../hook/useProfile"
 
 
-function ProfileSidbar() {
-
+export default function ProfileSidbar() {
+    const username = useParams().username
     const {user, isLoading, hasError} = useProfile(username)
-    
+
     const profile_picture = user?.avatar_url;
 
     const hasData = !hasError && !isLoading && user
@@ -70,5 +70,3 @@ function ProfileSidbar() {
         </div>
     )
 }
-
-export default ProfileSidbar

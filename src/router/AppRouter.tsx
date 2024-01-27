@@ -1,12 +1,11 @@
 
 import { BrowserRouter as Router , Route, Routes } from "react-router-dom";
-import { username } from "../api/requestApi"
-
 import Overview from '../components/Main/ActivitySidbar/views/Overview'
 import Repositories from '../components/Main/ActivitySidbar/views/Repositories' 
 import Project from '../components/Main/ActivitySidbar/views/Project' 
 import Packages from "../components/Main/ActivitySidbar/views/Packages";
 import Stars from "../components/Main/ActivitySidbar/views/Stars";
+import SpecificRepository from "../components/Main/ActivitySidbar/views/SpecificRepository";
 
 export default function AppRouter(){
     return (
@@ -17,8 +16,8 @@ export default function AppRouter(){
                 <Route  path={`:username/projects`}  element={<Project />}/>
                 <Route  path={`:username/packages`}  element={<Packages />}/>
                 <Route  path={`:username/Stars`}  element={<Stars />}/>
-                <Route  path={`:username/:repository`}  element={<Stars />}/>
-            </Route>
+                <Route  path={`:username/:repository`}  element={<SpecificRepository/>}/>
+            </Route>   
         </Routes>
     )
 }

@@ -1,15 +1,17 @@
 import * as moment from 'moment';
-// import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 function AllRepositories(props) {
     const languageColorClass = getLanguageColorClass(props.language);
     const updatedDay = calculateUpdateLabel(props.update)
+
+    const username = useParams().username;
   
     return(
         <li className="py-4 border border-start-0 border-end-0 d-flex justify-content-between ">
             <div>
                 <div className="d-flex gap-2 align-items-center">
-                    <a role="button" className="pointer text-primary m-0">{props.title}</a>
+                    <Link to={`/${username}/${props.title}`} className="pointer text-primary m-0">{props.title}</Link>
                     <span className="rounded-pill px-2 fs-small border border-secondary-subtle">{props.status}</span>
                 </div>
                 <p className="mt-2 mb-3 w-75 text-secondary ">{props.description}</p>
