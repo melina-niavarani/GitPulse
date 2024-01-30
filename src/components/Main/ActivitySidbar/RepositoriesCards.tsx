@@ -54,9 +54,9 @@ function getLanguageColorClass(language) {
         case 'JavaScript':
             return 'bg-warning';
         case 'CSS':
-            return 'bg-indigo-600';
+            return 'bg-indigo';
         case 'Jupyter Notebook ':
-            return 'bg-orange-500';
+            return 'bg-orange';
         default : 
             return 'bg-danger'
     }
