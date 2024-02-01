@@ -1,36 +1,92 @@
+import * as moment from 'moment';
 import Header from "../../../Header/Header";
 import { useRepositoriesDetails } from "../../../../hook/useRepoDetails"
 import { useParams } from "react-router-dom";
-import { Line } from "rc-progress";
-import { getLanguages } from "../../../../api/requestApi";
+import { getLanguages, getReadME , getNumberOfCommits, getRepositoryContent} from "../../../../api/requestApi";
 import { useEffect, useState } from "react";
 
 
 export default function SpecificRepository(){
     const username =useParams().username;
     const repo_name = useParams().repository;
-    const [languages, setLanguages] = useState([])
-    const [percents , setPercents] = useState([])
+    const [repositoryDetails, setRepositoryDetails,] = useState({
+        languageDetails: [] as any || null,
+        languages: [] as String[] || null,
+        percents: [] as number[] || null,
+        readme: "",
+        numberOfCommits: 0,
+        contentsDir: [],
+        contentsFile: []
+      });
     const {repository, isLoading, hasError} = useRepositoriesDetails(username, repo_name)
 
     const repo_details = repository?.data
     const porofile_picture = repo_details?.owner.avatar_url;
+    console.log("repo_details",repo_details)
+
+   
 
     useEffect(() => {
-        getLanguages(username,repo_name)
+        // Fetch languages data
+        getLanguages(username, repo_name)
+          .then((data) => {
+            const percents: number[] = Object.values(data);
+            const language: string[] = Object.keys(data)
+            const arrayOfLanguages: any = Object.entries(data);
+      
+            setRepositoryDetails((prevDetails) => ({
+              ...prevDetails,
+              languageDetails : arrayOfLanguages,
+              languages: language,
+              percents: percents,
+            }));
+          })
+          .catch((error) => {
+            console.error("Error fetching languages:", error);
+          });
+      
+        // Fetch README
+        getReadME(username, repo_name)
+          .then((data) => {
+            setRepositoryDetails((prevDetails) => ({
+              ...prevDetails,
+              readme: data,
+            }));
+          })
+          .catch((error) => {
+            console.error("Error fetching README:", error);
+          });
+      
+        // Fetch number of commits
+        getNumberOfCommits(username, repo_name)
+          .then((data) => {
+            setRepositoryDetails((prevDetails) => ({
+              ...prevDetails,
+              numberOfCommits: data,
+            }));
+          })
+          .catch((error) => {
+            console.error("Error fetching commits:", error);
+          });
+        getRepositoryContent(username, repo_name)
             .then((data) => {
-                const percents = Object.values(data)
-                const arrayOfLanguages = Object.entries(data)
-                setLanguages(arrayOfLanguages)
-                setPercents(percents)
+                console.log("hi",data)
+                setRepositoryDetails((prevDetails) => ({
+                ...prevDetails,
+                contentsDir: data.filter((item: any) => item.type === 'dir'),
+                contentsFile: data.filter((item: any) => item.type === 'file'),
+                }));
             })
             .catch((error) => {
-                console.error("Error fetching languages:", error);
+                console.error("Error fetching contentsDir:", error);
             });
-    }, [username, repo_name])
+      }, [username, repo_name]);
 
-    const sumOfValues = percents.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    const sumOfValues = repositoryDetails?.percents?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    const updatedDay = calculateUpdateLabel(repo_details?.pushed_at)
+    console.log(repositoryDetails.contentsDir)
 
+   
     return(
         <div>
             <Header />
@@ -151,39 +207,61 @@ export default function SpecificRepository(){
                                     <span>
                                         <span>744193f</span>
                                         .
-                                        <span className="mx-2">4months ago</span>
+                                        <span className="mx-2">{updatedDay}</span>
                                     </span>
                                     <span data-component="leadingVisual">
                                         <svg aria-hidden="true" focusable="false" role="img" className="octicon octicon-history" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                                             <path d="m.427 1.927 1.215 1.215a8.002 8.002 0 1 1-1.6 5.685.75.75 0 1 1 1.493-.154 6.5 6.5 0 1 0 1.18-4.458l1.358 1.358A.25.25 0 0 1 3.896 6H.25A.25.25 0 0 1 0 5.75V2.104a.25.25 0 0 1 .427-.177ZM7.75 4a.75.75 0 0 1 .75.75v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5A.75.75 0 0 1 7.75 4Z"></path>
                                         </svg>
                                     </span>
-                                    <span className="fw-bold">29 commits</span>
+                                    <span className="fw-bold">{repositoryDetails.numberOfCommits} commits</span>
                                 </div>
                             </div>
                             <ul className="list-group list-group-flush">
-                                <li className="list-group-item">An item</li>
-                                <li className="list-group-item">A second item</li>
-                                <li className="list-group-item">A third item</li>
+                                {repositoryDetails.contentsDir.map((content)=>(
+                                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 className='m-0 d-flex align-items-center'>
+                                            <svg aria-hidden="true" focusable="false" role="img" className="text-info me-2" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" >
+                                                <path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path>
+                                            </svg>
+                                            <a role='button' className='fs-md'>{content.name}</a>
+                                        </h6>
+                                        <p></p>
+                                    </li>
+                                ))}
+                                {repositoryDetails.contentsFile.map((content)=>(
+                                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 className='m-0 d-flex align-items-center'>
+                                            <svg aria-hidden="true" focusable="false" role="img" className="text-secondary me-2" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                                <path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path>
+                                            </svg>
+                                            <a role='button' className='fs-md '>{content.name}</a>
+                                        </h6>
+                                        <p></p>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         <div className="card mt-3">
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item fw-bold fs-sm">
+                           <div className="list-group list-group-flush">
+                                <div className="list-group-item fw-bold fs-sm">
                                     <svg aria-hidden="true" focusable="false" role="img" className="octicon octicon-book me-2" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                                        <path d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 0 0 5.003 2.5H1.5v9h3.757a3.75 3.75 0 0 1 1.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 0 1 1.992-.572H14.5v-9h-3.495a2.25 2.25 0 0 0-2.25 2.25Z"></path>
+                                            <path d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 0 0 5.003 2.5H1.5v9h3.757a3.75 3.75 0 0 1 1.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 0 1 1.992-.572H14.5v-9h-3.495a2.25 2.25 0 0 0-2.25 2.25Z"></path>
                                     </svg>
                                     README
-                                </li>
-                                <li className="list-group-item d-flex flex-column align-items-center gap-3 py-4">
+                                </div>
+                            {repositoryDetails?.readme? 
+                                <div className="text-center p-4"> {repositoryDetails.readme} </div>: 
+                                <div className="list-group-item d-flex flex-column align-items-center gap-3 py-4">
                                     <svg aria-hidden="true" focusable="false" role="img" className="Octicon-sc-9kayk9-0 gLySGv" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
                                         <path d="M0 3.75A.75.75 0 0 1 .75 3h7.497c1.566 0 2.945.8 3.751 2.014A4.495 4.495 0 0 1 15.75 3h7.5a.75.75 0 0 1 .75.75v15.063a.752.752 0 0 1-.755.75l-7.682-.052a3 3 0 0 0-2.142.878l-.89.891a.75.75 0 0 1-1.061 0l-.902-.901a2.996 2.996 0 0 0-2.121-.879H.75a.75.75 0 0 1-.75-.75Zm12.75 15.232a4.503 4.503 0 0 1 2.823-.971l6.927.047V4.5h-6.75a3 3 0 0 0-3 3ZM11.247 7.497a3 3 0 0 0-3-2.997H1.5V18h6.947c1.018 0 2.006.346 2.803.98Z"></path>
                                     </svg>
                                     <div className="fw-bold">Add a README</div>
                                     <p className="fs-small text-secondary">Help people interested in this repository understand your project by adding a README.</p>
                                     <button className="btn btn-success btn-sm">Add a README</button>
-                                </li>
-                            </ul>
+                                </div>
+                            }
+                           </div>
                         </div>
                     </section>
                     <section className="col-4 mx-4">
@@ -229,8 +307,8 @@ export default function SpecificRepository(){
                         <a className="fs-small text-primary" href="">Publish your first package</a>
                         <hr />
                         <h5>Languages</h5>
-                       <div className="progress">
-                            {languages.map(([language, percent]) => (
+                        <div className="progress">
+                            {repositoryDetails.languageDetails.map(([language, percent]) => (
                                 <div key={percent}
                                     className={`progress-bar ${getLanguageColorClass(language)}`} 
                                     style={{ width: `${percent}%` }}   
@@ -241,10 +319,10 @@ export default function SpecificRepository(){
                                 </div>
                             ))}
                         </div>
-                        
                         <div className="d-flex flex-wrap align-items-center">
-                            {languages.map(([language, percent]) => (
+                            {repositoryDetails.languageDetails.map(([language, percent]) => (
                                 <div key={percent} className="fw-bold fs-small col-6 d-flex align-irems-center p-1">
+                                    <span className={`language-color me-2 ${getLanguageColorClass(language)}`}></span>
                                     <span className="mx-2 d-flex">{language}</span>
                                     <span className="text-secondary">{(percent * 100 /sumOfValues).toFixed(1)} %</span>
                                 </div>
@@ -273,9 +351,30 @@ function getLanguageColorClass(language) {
             return 'bg-purple';
         case 'Jupyter Notebook ':
             return 'bg-orange';
+        case 'PHP':
+            return 'bg-dark-purple'
         default : 
             return 'bg-danger'
     }
+}
+
+const calculateUpdateLabel = (updateDate) => {
+    const today = moment();
+    const lastUpdate = moment(updateDate);
+
+    const daysDiff = today.diff(lastUpdate, 'days')
+
+    if (daysDiff === 0) {
+        return 'Updated today';
+      } else if (daysDiff === 1) {
+        return 'Updated yesterday';
+      } else if (daysDiff <= 7) {
+        return `Updated ${daysDiff} days ago`;
+      } else if (daysDiff > 7 && daysDiff <= 14) {
+        return 'Updated last week';
+      } else {
+        return `${lastUpdate.fromNow()}`;
+      }
 }
 
 

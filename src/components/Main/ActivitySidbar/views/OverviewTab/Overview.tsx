@@ -1,8 +1,8 @@
-import Header from "../../../Header/Header";
-import RepositoriesCards from "../RepositoriesCards";
-import ProfileSidbar from "../../ProfileSidbar/ProfileSidbar";
+import Header from "../../../../Header/Header";
+import RepositoriesCards from "./RepositoriesCards";
+import ProfileSidbar from "../../../ProfileSidbar/ProfileSidbar";
 
-import { useRepositories } from "../../../../hook/useRepositories";
+import { useRepositories } from "../../../../../hook/useRepositories";
 import { useParams } from "react-router-dom";
 
 export default function Overview(){
@@ -14,12 +14,12 @@ export default function Overview(){
     return (
         <div>
             <Header/>
-            <div className="container-fluid d-flex flex-column flex-md-row justify-content-between mt-5">
+            <div className="container-fluid d-flex flex-column flex-md-row justify-content-between mt-5 gap-3">
                 <div className="col-md-4">
                     <ProfileSidbar />
                 </div>
                 {/* Activity Sidebar */}
-                <div className="col-md-8 mt-5">
+                <div className="col-md-8 mt-5 pe-2">
                     <div className="d-flex justify-content-between">
                         <span>Popular repositories</span>
                         <a className="text-primary text-decoration-none" href="#">customiz your pins</a>
