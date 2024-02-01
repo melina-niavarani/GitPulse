@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useProfile } from "../../../hook/useProfile"
+// import { userAchievements } from "../../../api/requestApi";
 
 
 export default function ProfileSidbar() {
     const username = useParams().username
     const {user, isLoading, hasError} = useProfile(username)
+    // userAchievements(username)
 
     const profile_picture = user?.avatar_url;
 
@@ -14,16 +16,17 @@ export default function ProfileSidbar() {
         <div className="px-2">
             {hasError? "An error has been occured": 
                 <div>
-                    <div className="d-flex flex-row flex-md-column align-items-center align-items-md-start">
-                        <img alt="avatar-photo" src={profile_picture} width="260" height="260" className="d-block mx-auto shadow-sm h-auto rounded-circle border"></img>
-                        <h1 >
+                    <div className="d-flex flex-row flex-md-column">
+                        <img alt="avatar-photo" src={profile_picture} width="260" height="260" className="d-block me-3 shadow-sm h-auto rounded-circle border align-self-center"></img>
+                        <h1 className="mt-4">
                             <span className="d-block overflow-hidden fw-bolder fs-5 my-1">{ user?.name }</span>
-                            <span className="d-block text-secondary fs-6 "> { user?.login } </span>
+                            <span className="d-block text-secondary fw-normal fs-6 ">{ user?.login } </span>
                         </h1>
                     </div>
                     <div className="my-3 d-grid">
                         <button name="button" type="button" className="btn btn-light border">Edit profile</button>
                     </div>
+                    <div className="mb-3">{ user?.bio }</div>
                     <div className="flex mt-2 mt-md-0">
                             <div className="mb-3 d-flex gap-1">
                                 <a className=" text-decoration-none no-wrap d-flex gap-1 align-items-center" href="https://github.com/melina-niavarani?tab=followers">
@@ -41,22 +44,26 @@ export default function ProfileSidbar() {
                             </div>
                     </div>
                     <ul className="list-unstyled">
-                        <li  aria-label="Email: madler@alumni.caltech.edu" className="pt-1">
-                            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
-                                <path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2ZM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V5.809L8.38 9.397a.75.75 0 0 1-.76 0L1.5 5.809v6.442Zm13-8.181v-.32a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25v.32L8 7.88Z"></path>
-                            </svg>
-                            <a className="link-dark text-decoration-none px-2" href={user?.email} >{user?.email}</a>
-                        </li>
-                        <li className="pt-1">
-                            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
-                            <path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path>
-                            </svg>
-                            <a rel="nofollow me" className="link-dark text-decoration-none px-2" href={user?.blog} > {user?.blog} </a>
-                        </li>
+                        {user?.email?
+                            <li  aria-label="Email: madler@alumni.caltech.edu" className="pt-1">
+                                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+                                    <path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2ZM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V5.809L8.38 9.397a.75.75 0 0 1-.76 0L1.5 5.809v6.442Zm13-8.181v-.32a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25v.32L8 7.88Z"></path>
+                                </svg>
+                                <a className="link-dark text-decoration-none px-2" href={user.email} >{user.email}</a>
+                            </li>
+                        : null}
+                        {user?.blog? 
+                            <li className="pt-1">
+                                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+                                <path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path>
+                                </svg>
+                                <a rel="nofollow me" className="link-dark text-decoration-none px-2" href={user.blog} > {user.blog} </a>
+                            </li>
+                        : null}
                     </ul>
                     <hr></hr>
                     <h2 className="mb-2 fs-5 fw-bold">
-                        <a className="text-decoration-none" href="">Achevements</a>
+                        <a className="text-decoration-none" href="">Achievements</a>
                     </h2>
                     <div className="d-flex flex-wrap">
                         <a href="/madler?achievement=starstruck&amp;tab=achievements" className="position-relative">
@@ -66,7 +73,6 @@ export default function ProfileSidbar() {
                     </div>
                 </div>
             }
-
         </div>
     )
 }

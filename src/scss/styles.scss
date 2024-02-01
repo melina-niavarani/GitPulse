@@ -24,19 +24,13 @@ a:hover {
     --cl-muted: #656D76;
     --cl-hover: #0A69DA;
 }
-.bg-indigo-600 {
-    background-color: $indigo-600; 
-}
-.bg-orange-500 {
-    background-color: $orange-500; 
-}
+
 .fs-small {
     font-size: 12px;
 }
 .fs-md {
     font-size: 14px;
 }
-
 
 .header-bg {
     background-color: var(--header-bg);
@@ -62,7 +56,7 @@ a:hover {
 }
 
 .nav-link-active {
-    border-bottom: 2px solid #fe9600; 
+    border-bottom: 2px solid #fe9600;
     font-weight: 500;
 }
   
@@ -81,8 +75,14 @@ a:hover {
 }
 
 .bg-purple {
-    background-color: #4b2a89 !important;
+    background-color: #563d7c !important;
 }
 .bg-orange {
     background-color: #f3d334 !important;
+}
+.bg-mustrad {
+    background-color: #b07219 !important;
+}
+.bg-dark-purple {
+    background-color: #4F5D95 !important;
 }

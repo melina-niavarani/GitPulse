@@ -6,8 +6,8 @@ function RepositoriesCards(props) {
  
 
     return(
-        <li className="col-md-6 p-2">
-            <div className="card h-100">
+        <li className="col-md-6 py-2">
+            <div className="card h-100 mx-1">
                 <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center">
                         <Link to={`/${username}/${props.title}`} className="card-title text-primary">{props.title}</Link>
@@ -54,9 +54,11 @@ function getLanguageColorClass(language) {
         case 'JavaScript':
             return 'bg-warning';
         case 'CSS':
-            return 'bg-indigo';
+            return 'bg-purple';
         case 'Jupyter Notebook ':
             return 'bg-orange';
+        case 'Java':
+            return 'bg-mustrad';
         default : 
             return 'bg-danger'
     }
