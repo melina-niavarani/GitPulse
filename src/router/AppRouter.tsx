@@ -5,7 +5,7 @@ import Repositories from '../components/Main/ActivitySidbar/views/RepositoriesTa
 import Project from '../components/Main/ActivitySidbar/views/Project' 
 import Packages from "../components/Main/ActivitySidbar/views/Packages";
 import Stars from "../components/Main/ActivitySidbar/views/Stars";
-import SpecificRepository from "../components/Main/ActivitySidbar/views/SpecificRepository";
+import SpecificRepository from "../components/Main/ActivitySidbar/views/SpecificComponent/SpecificRepository";
 import Issues from "../components/Main/ActivitySidbar/views/Issues";
 
 export default function AppRouter(){

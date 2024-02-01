@@ -1,8 +1,10 @@
 import * as moment from 'moment';
-import Header from "../../../Header/Header";
-import { useRepositoriesDetails } from "../../../../hook/useRepoDetails"
+import Header from "../../../../Header/Header";
+import CodeDropdown from './CodeDropdown';
+
+import { useRepositoriesDetails } from "../../../../../hook/useRepoDetails"
 import { useParams } from "react-router-dom";
-import { getLanguages, getReadME , getNumberOfCommits, getRepositoryContent} from "../../../../api/requestApi";
+import { getLanguages, getReadME , getNumberOfCommits, getRepositoryContent} from "../../../../../api/requestApi";
 import { useEffect, useState } from "react";
 
 
@@ -18,6 +20,7 @@ export default function SpecificRepository(){
         contentsDir: [],
         contentsFile: []
       });
+
     const {repository, isLoading, hasError} = useRepositoriesDetails(username, repo_name)
 
     const repo_details = repository?.data
@@ -186,14 +189,7 @@ export default function SpecificRepository(){
                                         <path d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"></path>
                                     </svg>
                                 </button>
-                                <button className="btn btn-success">
-                                    <span>
-                                        <svg aria-hidden="true" focusable="false" role="img" className="octicon octicon-code" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
-                                            <path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
-                                        </svg>
-                                    </span>
-                                    <span className="mx-2">Code</span>
-                                </button>
+                                <CodeDropdown username={username} repo_name={repo_name} repo_clone={repo_details?.clone_url} ssh_url={repo_details?.ssh_url} />
                             </div>
                         </div>
                         <div className="card mt-3">
