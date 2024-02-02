@@ -7,6 +7,7 @@ import { useRepositories } from "../../../../../hook/useRepositories"
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 
+import { Hourglass } from 'react-loader-spinner'
 
 export default function Repositories(){
     const username = useParams().username;
@@ -30,6 +31,35 @@ export default function Repositories(){
         const matchesLanguage = !selectedLanguage || repo.language === selectedLanguage;
         return matchesSearch && matchesLanguage;
     });
+
+    if (isLoading) {
+        return (
+            <div>
+                <Header />
+                <div className="d-flex justify-content-center align-items-center fs-1 py-5 my-5 gap-2">
+                    <Hourglass
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="hourglass-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    colors={['#306cce', '#72a1ed']}
+                    />
+                    <span>Loading...</span>
+                </div>
+            </div>
+        );
+    }
+
+    if (hasError) {
+        return (
+            <div>
+                <Header />
+                <p>Error loading repositories. Please try again.</p>
+            </div>
+        );
+    }
 
 
     return(

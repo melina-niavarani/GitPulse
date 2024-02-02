@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { getLanguages, getReadME , getNumberOfCommits, getRepositoryContent} from "../../../../../api/requestApi";
 import { useEffect, useState } from "react";
 
+import { Hourglass } from 'react-loader-spinner'
 
 export default function SpecificRepository(){
     const username =useParams().username;
@@ -88,6 +89,36 @@ export default function SpecificRepository(){
     const sumOfValues = repositoryDetails?.percents?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     const updatedDay = calculateUpdateLabel(repo_details?.pushed_at)
     console.log(repositoryDetails.contentsDir)
+
+    if (isLoading) {
+        return (
+            <div>
+                <Header />
+                <div className="d-flex justify-content-center align-items-center fs-1 py-5 my-5 gap-2">
+                    <Hourglass
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="hourglass-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    colors={['#306cce', '#72a1ed']}
+                    />
+                    <span>Loading...</span>
+                </div>
+            </div>
+        );
+    }
+
+    if (hasError) {
+        return (
+            <div>
+                <Header />
+                <p>Error loading repositories. Please try again.</p>
+            </div>
+        );
+    }
+
 
    
     return(
