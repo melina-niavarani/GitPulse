@@ -39,7 +39,7 @@ export default function Overview(){
         return (
             <div>
                 <Header />
-                <p>Error loading repositories. Please try again.</p>
+                <p className='d-flex justify-content-center align-items-center fs-1 py-5 my-5 text-danger '>Error loading repositories. Please try again.</p>
             </div>
         );
     }

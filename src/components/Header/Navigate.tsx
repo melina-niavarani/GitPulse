@@ -30,7 +30,7 @@ function Navigate() {
     return(
         <div>
             <nav aria-label="User" className="overflow-hidden">
-            {hasError? "An error has been occured":   
+            {hasError? <span className="mx-2 text-danger">An error has been occured!</span>:   
                 <ul className="list-style-none d-flex align-items-center gap-3 my-0 px-3">
                     <li className={`d-inline-flex p-2 ${location.pathname === `/${username}` ? 'nav-link-active' : 'nav-link '}`}>
                         <Link id="overview-tab" to={`/${username}`} className="text-decoration-none d-flex gap-1 justify-content-center align-items-center" >
