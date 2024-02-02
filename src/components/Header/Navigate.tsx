@@ -1,6 +1,9 @@
 // import { username } from "../../api/requestApi"
 import { Link, Outlet ,useParams, useLocation } from "react-router-dom"
 import { useProfile } from "../../hook/useProfile";
+import { getUserTotalStars } from "../../api/requestApi";
+
+import { useEffect, useState } from "react";
 
 
 function Navigate() {
@@ -8,6 +11,20 @@ function Navigate() {
 
     const username = useParams().username;
     const { user, isLoading, hasError } = useProfile(username);
+
+    const [ totslStars, setTotalStars ] = useState(0)
+    
+
+    useEffect(()=>{
+        getUserTotalStars(username)
+        .then((data) => {
+            setTotalStars(data)
+            console.log('total',totslStars)
+          })
+          .catch((error) => {
+            console.error("Error fetching Stars:", error);
+          });
+    }, [])
 
 
     return(

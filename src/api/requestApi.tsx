@@ -11,7 +11,7 @@ export interface UserInfo {
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
 
-const personal_token = "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"
+const personal_token = "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"
 
 
 const octokit = new Octokit({
@@ -31,22 +31,40 @@ export async function requestUserData(username:string){
   return user_info.data;
 }
 
-// API cal For user achievements
-export async function userAchievements(username:string){
-  const apiUrl = `https://api.github.com/users/${username}/events`;
+// API call for total stars
+export async function getUserTotalStars(owner:string){
+  const starredUrlTemplate = `https://api.github.com/users/${owner}/starred{/${owner}}`;
   try {
-      const response = await fetch(apiUrl);
-  
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data: ${response.status} - ${response.statusText}`);
-      }
-      const userAchievements = await response.json();
-      console.log("userAchievements",userAchievements)
-      return userAchievements;
-    } catch (error) {
-      console.error('Error fetching repository userAchievements:', error.message);
+    const response = await fetch(starredUrlTemplate);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.status} - ${response.statusText}`);
     }
+    const data = await response.json();
+    const totalStars = data.reduce((acc, repo) => acc + repo.stargazers_count, 0)
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching repository userAchievements:', error.message);
+  }
 }
+
+
+// API call For user achievements
+// export async function userAchievements(username:string){
+//   const apiUrl = `https://api.github.com/users/${username}/events`;
+//   try {
+//       const response = await fetch(apiUrl);
+  
+//       if (!response.ok) {
+//         throw new Error(`Failed to fetch data: ${response.status} - ${response.statusText}`);
+//       }
+//       const userAchievements = await response.json();
+//       console.log("userAchievements",userAchievements)
+//       return userAchievements;
+//     } catch (error) {
+//       console.error('Error fetching repository userAchievements:', error.message);
+//     }
+// }
 
 
 export interface RepositoriesInfo {
@@ -129,8 +147,6 @@ export async function getRepositoryContent(owner:string, repo:string){
     const response = await fetch(contentUrl);
     const data = await response.json();
 
-    // const folderList = data.filter((item: any) => item.type === 'dir');
-    // return folderList
     return data
 
   } catch (error) {

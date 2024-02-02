@@ -7,8 +7,8 @@ function Header() {
     const username = useParams().username;
     const repository = useParams().repository;
     const location = useLocation()
-    const isSpecificRepositoryRoute = location.pathname === `/${username}/${repository}`;
-    const issuesRoute = location.pathname === `/${username}/${repository}/issues`
+    const isSpecificRepositoryRoute = location.pathname === `/${username}/${repository}` ;
+    const issuesRoute = location.pathname === `/${username}/${repository}/issues` 
     return(
         <header className="header-bg">
             <Navbar/>
