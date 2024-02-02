@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { getLanguages, getReadME , getNumberOfCommits, getRepositoryContent} from "../../../../../api/requestApi";
 import { useEffect, useState } from "react";
 
+import { getLanguageColorClass, calculateUpdateLabel } from '../../../../../Shared/sharedFunctions';
 import { Hourglass } from 'react-loader-spinner'
 
 export default function SpecificRepository(){
@@ -366,42 +367,6 @@ export default function SpecificRepository(){
     )
 }
 
-function getLanguageColorClass(language) {
-    switch (language) {
-        case 'Vue':
-            return 'bg-success';
-        case 'TypeScript':
-            return 'bg-primary';
-        case 'JavaScript':
-            return 'bg-warning';
-        case 'CSS':
-            return 'bg-purple';
-        case 'Jupyter Notebook ':
-            return 'bg-orange';
-        case 'PHP':
-            return 'bg-dark-purple'
-        default : 
-            return 'bg-danger'
-    }
-}
 
-const calculateUpdateLabel = (updateDate) => {
-    const today = moment();
-    const lastUpdate = moment(updateDate);
-
-    const daysDiff = today.diff(lastUpdate, 'days')
-
-    if (daysDiff === 0) {
-        return 'Updated today';
-      } else if (daysDiff === 1) {
-        return 'Updated yesterday';
-      } else if (daysDiff <= 7) {
-        return `Updated ${daysDiff} days ago`;
-      } else if (daysDiff > 7 && daysDiff <= 14) {
-        return 'Updated last week';
-      } else {
-        return `${lastUpdate.fromNow()}`;
-      }
-}
 
 

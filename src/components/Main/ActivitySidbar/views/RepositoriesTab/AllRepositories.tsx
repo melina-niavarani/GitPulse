@@ -1,6 +1,8 @@
 import * as moment from 'moment';
 import { Link, useParams } from 'react-router-dom';
 
+import { calculateUpdateLabel, getLanguageColorClass } from "../../../../../Shared/sharedFunctions";
+
 function AllRepositories(props) {
     const languageColorClass = getLanguageColorClass(props.language);
     const updatedDay = calculateUpdateLabel(props.update)
@@ -77,7 +79,6 @@ function AllRepositories(props) {
                             <path d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"></path>
                         </svg>
                         Create list
-                        {/* <span className="js-user-list-create-trigger-text"></span> */}
                     </button>
                 </div>
             </div>
@@ -87,42 +88,4 @@ function AllRepositories(props) {
 }
 export default AllRepositories;
 
-function getLanguageColorClass(language) {
-    switch (language) {
-        case 'Vue':
-            return 'bg-success';
-        case 'TypeScript':
-            return 'bg-primary';
-        case 'JavaScript':
-            return 'bg-warning';
-        case 'CSS':
-            return 'bg-purple';
-        case 'Jupyter Notebook ':
-            return 'bg-orange';
-        case 'Java':
-            return 'bg-mustrad';
-        case 'PHP':
-            return 'bg-dark-purple'
-        default : 
-            return 'bg-danger'
-    }
-}
 
-const calculateUpdateLabel = (updateDate) => {
-    const today = moment();
-    const lastUpdate = moment(updateDate);
-
-    const daysDiff = today.diff(lastUpdate, 'days')
-
-    if (daysDiff === 0) {
-        return 'Updated today';
-      } else if (daysDiff === 1) {
-        return 'Updated yesterday';
-      } else if (daysDiff <= 7) {
-        return `Updated ${daysDiff} days ago`;
-      } else if (daysDiff > 7 && daysDiff <= 14) {
-        return 'Updated last week';
-      } else {
-        return `Updated on ${lastUpdate.format('MMMM D, YYYY')}`;
-      }
-}

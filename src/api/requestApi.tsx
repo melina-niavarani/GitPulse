@@ -11,7 +11,7 @@ export interface UserInfo {
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
 
-const personal_token = "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"
+const personal_token = "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"
 
 
 const octokit = new Octokit({
@@ -32,19 +32,17 @@ export async function requestUserData(username:string){
 }
 
 // API call for total stars
-export async function getUserTotalStars(owner:string){
-  const starredUrlTemplate = `https://api.github.com/users/${owner}/starred{/${owner}}`;
+export async function getStarredRepo(owner:string){
+  const starredUrlTemplate = `https://api.github.com/users/${owner}/starred`;
   try {
     const response = await fetch(starredUrlTemplate);
     if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.status} - ${response.statusText}`);
+      throw new Error(`Failed to fetch starred repositories: ${response.status} - ${response.statusText}`);
     }
-    const data = await response.json();
-    const totalStars = data.reduce((acc, repo) => acc + repo.stargazers_count, 0)
-
-    return data;
+    const starredRepo = await response.json();
+    return starredRepo;
   } catch (error) {
-    console.error('Error fetching repository userAchievements:', error.message);
+    console.error('Error fetching starred repositories:', error.message);
   }
 }
 

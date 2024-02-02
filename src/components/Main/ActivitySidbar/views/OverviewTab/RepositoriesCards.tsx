@@ -1,4 +1,5 @@
 import { Link, useParams  } from "react-router-dom"
+import { getLanguageColorClass } from "../../../../../Shared/sharedFunctions";
 
 function RepositoriesCards(props) {
     const languageColorClass = getLanguageColorClass(props.language);
@@ -45,22 +46,5 @@ function RepositoriesCards(props) {
 }
 export default RepositoriesCards;
 
-function getLanguageColorClass(language) {
-    switch (language) {
-        case 'Vue':
-            return 'bg-success';
-        case 'TypeScript':
-            return 'bg-primary';
-        case 'JavaScript':
-            return 'bg-warning';
-        case 'CSS':
-            return 'bg-purple';
-        case 'Jupyter Notebook ':
-            return 'bg-orange';
-        case 'Java':
-            return 'bg-mustrad';
-        default : 
-            return 'bg-danger'
-    }
-}
+
 
