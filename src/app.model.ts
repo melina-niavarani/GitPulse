@@ -1,4 +1,4 @@
-import { UserInfo, RepositoriesInfo, RepositoriyDetails } from "./api/requestApi";
+import { UserInfo, RepositoriesInfo, RepositoriyDetails, issuessInfo } from "./api/requestApi";
 
 export class Action {
     type: string;
@@ -23,7 +23,7 @@ export class RepoDetails {
 }
 
 export class issues {
-    repository: RepositoriyDetails; 
+    issues: issuessInfo; 
     isLoading: boolean;
     hasError: boolean
 }

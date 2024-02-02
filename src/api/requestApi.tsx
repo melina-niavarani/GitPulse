@@ -11,7 +11,7 @@ export interface UserInfo {
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
 
-const personal_token = "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"
+const personal_token = "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"
 
 
 const octokit = new Octokit({
@@ -115,16 +115,31 @@ export async function requestRepositoriesDetails(username: string, repo_name: st
 
 
 // API cal For issues //
+export interface issuessInfo {
+  id: number;
+  name: string;
+  private: boolean;
+  description: string;
+  language: string;
+  forks_count: number;
+  stargazers_count: number;
+}
 export async function requestIssues (username: string, repo_name: string){
-  const issues = await octokit.request('GET  /repos/{username}/{repo}/issues', {
-    username: username,
-    repo: repo_name,
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
-  console.log("requestIssues", issues)
-  return issues
+  try {
+    const response = await octokit.request(`GET /repos/${username}/${repo_name}/issues`, {
+      owner: username,
+      repo: repo_name,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+    });
+
+    console.log("requestIssues is", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error in requestIssues:", error);
+    throw error;
+  }
 }
 
 // API call for SEARCH //
