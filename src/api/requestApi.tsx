@@ -1,5 +1,4 @@
 import { Octokit } from "octokit";
-import PERSONAL_TOKEN from "./PersonalToken.env"
 
 export interface UserInfo {
   login: string;
