@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { calculateUpdateLabel, getLanguageColorClass } from "../../../../../Shared/sharedFunctions";
 
 function AllRepositories(props) {
-    const languageColorClass = getLanguageColorClass(props.language);
+    const languageColorClass = getLanguageColorClass(props?.language);
     const updatedDay = calculateUpdateLabel(props.update)
 
     const username = useParams().username;
@@ -87,5 +87,6 @@ function AllRepositories(props) {
 
 }
 export default AllRepositories;
+
 
 

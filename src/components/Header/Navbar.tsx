@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom"
 import { useProfile } from "../../hook/useProfile";
 import { useState } from "react";
-import { getSearchResult } from "../../api/requestApi";
+import { getSearchinRepositories, getSearchinUsers  } from "../../api/requestApi";
+import { Link } from "react-router-dom";
 
 import OffcanvasBody from "./OffcanvasBody"
 
@@ -15,12 +16,28 @@ function Navbar() {
 
     let visibility = false;
     const [searchQuery, setSearchQuery] = useState("");
-    const queryString = 'q='+ searchQuery + encodeURIComponent('GitHub Octocat in:readme user:defunkt') ;
-    console.log(queryString)
+    const [repositoryResults, setRepositoryResults]= useState([])
+    const [usersResults, setUsersResults]= useState([])
+
+   
+    const [loadingResults, setLoadingResults] = useState(false);
+
     const handleSearch = async () => {
-        const searchResult = await getSearchResult(queryString);
-        console.log("hi",searchResult);
-      };
+        setLoadingResults(true);
+        try {
+            const searchRepoResult = await getSearchinRepositories (`q=${searchQuery}`) ;
+            const searchUsersResult = await getSearchinUsers (searchQuery)
+            console.log("users",searchUsersResult)
+            setRepositoryResults(searchRepoResult.data.items);
+            setUsersResults(searchUsersResult.data.items)
+           
+        } catch (error) {
+            console.error("Error fetching search results", error);
+        } finally {
+            setLoadingResults(false);
+        }
+    };
+
 
     
     if (hasError) {
@@ -78,22 +95,93 @@ function Navbar() {
                 </button>
                 <div className={`container-fluid dropdown-menu ${visibility ? 'search-form-visible' : ''}`}>
                     <form 
-                        className="d-flex dropdown-item" 
+                        className="d-flex dropdown-item position-relative" 
                         role="search"
-                        onChange={(e) => {
+                        onSubmit={(e)=>{
                             e.preventDefault();
-                            handleSearch();
-                            // if (e.key === "Enter") {
-                            // }
+                            handleSearch()
                         }}
                     >
+                        <span id="query-builder-test-leadingvisual-wrap" className="position-absolute top-50 translate-middle ps-4">
+                            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" className="octicon ">
+                                <path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path>
+                            </svg>
+                        </span>
                         <input 
-                            className="form-control me-2" 
+                            className="form-control ps-4" 
                             type="search" 
                             placeholder="Search" 
                             aria-label="Search" 
                             onChange={(e) => setSearchQuery(e.target.value)}/>
                     </form>
+                    {searchQuery.length>0 ? 
+                        <div className="px-3 py-2 d-flex justify-content-between align-items-center border-bottom">
+                            <p className="m-0">
+                                <span id="query-builder-test-leadingvisual-wrap" className="me-2">
+                                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" className="octicon ">
+                                        <path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path>
+                                    </svg>
+                                </span>
+                                {searchQuery}
+                            </p>
+                            <span className="text-muted">Search all of GitHub </span>
+                        </div>
+                        : null
+                    }
+                    {repositoryResults && repositoryResults.length>0 || usersResults && usersResults.length>0 ? 
+                    <div className="px-3">
+                        {usersResults.length>0 ?
+                            <div className="border-bottom my-4">
+                                <h6 className="text-muted">Owners</h6>
+                                <ul className="list-unstyled ">
+                                    {usersResults.map((user)=>{
+                                        return(
+                                            <li key={user.id} className="py-1">
+                                                <Link to={`/${user.login}`} className="d-flex justify-content-between align-items-center search-result">
+                                                    <h6 className="m-0 fs-6 p-2">
+                                                        <span id="query-builder-test-result-schweinepriester/github-profile-achievements--leading"  className="me-2">
+                                                            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" className="octicon">
+                                                                <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span>{user.login}</span>
+                                                    </h6>
+                                                    <span className="text-muted">Jump to</span>
+                                                </Link>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div> 
+                        : null}
+                        {repositoryResults.length>0 ? 
+                            <div className="my-4">
+                                <h6 className="text-muted">Repositories</h6>
+                                <ul className="list-unstyled ">
+                                    {repositoryResults.map((repo)=>{
+                                        return(
+                                            <li key={repo.id} className="py-1">
+                                                <Link to={`/${repo.owner.login}/${repo.name}`} className="d-flex justify-content-between align-items-center search-result">
+                                                    <h6 className="m-0 fs-6 p-2">
+                                                        <span id="query-builder-test-result-schweinepriester/github-profile-achievements--leading"  className="me-2">
+                                                            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" className="octicon">
+                                                                <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span>{repo.full_name}</span>
+                                                    </h6>
+                                                    <span className="text-muted">Jump to</span>
+                                                </Link>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div> 
+                        : null}
+                    </div>
+                    :
+                    null
+                    }
                 </div>
                 <div className="d-flex gap-2">
                     <button id="global-create-menu-button" className="btn btn-outline-secondary btn-sm d-none d-md-block">  

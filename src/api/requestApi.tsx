@@ -11,7 +11,7 @@ export interface UserInfo {
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
 
-const personal_token = "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"
+const personal_token = "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"
 
 
 const octokit = new Octokit({
@@ -49,19 +49,14 @@ export async function getStarredRepo(owner:string){
 
 // API call For user achievements
 // export async function userAchievements(username:string){
-//   const apiUrl = `https://api.github.com/users/${username}/events`;
-//   try {
-//       const response = await fetch(apiUrl);
-  
-//       if (!response.ok) {
-//         throw new Error(`Failed to fetch data: ${response.status} - ${response.statusText}`);
-//       }
-//       const userAchievements = await response.json();
-//       console.log("userAchievements",userAchievements)
-//       return userAchievements;
-//     } catch (error) {
-//       console.error('Error fetching repository userAchievements:', error.message);
+//   const user_repos = await octokit.request('GET /users/{username}/repos', {
+//     username: username,
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
 //     }
+//   })
+//   console.log('Repositories Data',user_repos)
+//   return user_repos.data;
 // }
 
 
@@ -143,15 +138,25 @@ export async function requestIssues (username: string, repo_name: string){
 }
 
 // API call for SEARCH //
-export async function getSearchResult (code: any){
-  const searchResult = await octokit.request('GET /search/repositories?{code}', {
-    code: code,
+export async function getSearchinRepositories (code: any){
+  const searchResult = await octokit.request('GET /search/repositories', {
+    q: code,
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
   return searchResult
 }
+export async function getSearchinUsers (query: string){
+  const searchResult = await octokit.request('GET /search/users', {
+    q: query,
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
+  return searchResult
+}
+
 
 // API CALL for repositoriy contents //
 export async function getRepositoryContent(owner:string, repo:string){

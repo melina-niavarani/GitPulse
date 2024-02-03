@@ -98,3 +98,9 @@ a:hover {
 .lh-mini {
     height: 7px;
 }
+.search-result:hover {
+    text-decoration: none !important;
+    background-color: #eff2f4;
+    border-radius: 6px;
+    color: inherit !important;
+}
