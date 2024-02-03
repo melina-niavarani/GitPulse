@@ -1,11 +1,18 @@
 import { useRepositories } from "../../hook/useRepositories"
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 
 export default function OffcanvasBody() {
     const username = useParams().username
     const {repository} = useRepositories(username);
-    const displayedRepositories = repository? repository.slice(0, 5) : [];
+    const [displayCount, setDisplayCount] = useState(5);
+
+    const displayedRepositories = repository? repository.slice(0, displayCount) : [];
     const porofile_picture = repository[0]?.owner.avatar_url;
+
+    const showMoreRepositories = () => {
+        setDisplayCount(displayCount + 5);
+    };
 
     return (
         <div className="offcanvas-body">
@@ -95,7 +102,7 @@ export default function OffcanvasBody() {
                 )
             })}
             </ul>
-            <button className="btn btn-sm p-0 text-secondary">Show more</button>
+            <button className="btn btn-sm p-0 text-secondary" onClick={showMoreRepositories}>Show more</button>
         </div>
 
     )

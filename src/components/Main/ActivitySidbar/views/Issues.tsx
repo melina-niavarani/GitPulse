@@ -102,18 +102,8 @@ export default function Issues(){
                         </div>
                     </div>
                 </section>
-                <section className="border rounded my-4  ">
-                    {!issues? 
-                        <div className="text-center p-3">
-                            <svg height="24" viewBox="0 0 24 24" version="1.1" width="24" className="octicon my-4">
-                                <path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Zm9.5 2a2 2 0 1 1-.001-3.999A2 2 0 0 1 12 14Z"></path>
-                            </svg>
-                            <h3 className="mb-2">Welcome to issues!</h3>
-                            <p className="fs-md text-secondary px-5">Issues are used to track todos, bugs, feature requests, and more. As issues are created, they’ll appear here in a searchable and filterable list. To get started, you should 
-                                <a className="mx-1 text-primary text-decoration-underline" href="/melina-niavarani/Etalon/issues/new/choose">create an issue</a>.
-                            </p>
-                        </div>
-                        :
+                <section className="border rounded my-4">
+                    {issues && issues.length > 0? 
                         <section >
                             <div className="d-flex justify-content-between border-bottom p-3">
                                 <div className="d-flex align-items-center gap-2">
@@ -154,6 +144,18 @@ export default function Issues(){
                                 })}
                             </ul>
                         </section>
+                        :
+                        <div className="text-center px-3 py-5">
+                            <svg height="24" viewBox="0 0 24 24" version="1.1" width="24" className="octicon my-4">
+                                <path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Zm9.5 2a2 2 0 1 1-.001-3.999A2 2 0 0 1 12 14Z"></path>
+                            </svg>
+                            <h3 className="mb-2">Welcome to issues!</h3>
+                            <p className="fs-md text-secondary px-5">Issues are used to track todos, bugs, feature requests, and more. As issues are created, they’ll appear here in a searchable and filterable list. To get started, you should 
+                                <a className="mx-1 text-primary text-decoration-underline" href="/melina-niavarani/Etalon/issues/new/choose">create an issue</a>.
+                            </p>
+                        </div>
+                        
+                        
                     }       
                 </section>
                 <div className="mt-3 text-center color-fg-muted mb-5">

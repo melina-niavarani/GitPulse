@@ -47,8 +47,6 @@ function useIssues(username: string, repo_name: string) {
     });
     requestIssues(username, repo_name)
       .then((data) => {
-        const openIssues = data.filter((issue) => issue.state === "open");
-        const closedIssues = data.filter((issue) => issue.state === "closed")
         dispatch({
           type: "update_issues",
           payload: {

@@ -3,6 +3,8 @@ import { useRepositoriesDetails } from "../../hook/useRepoDetails"
 
 import { useIssues } from "../../hook/useIssues";
 
+import { FallingLines } from "react-loader-spinner";
+
 export default function Toolbar(){
     const username = useParams().username;
     const repo_name = useParams().repository;
@@ -30,8 +32,19 @@ export default function Toolbar(){
                         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" className="octicon octicon-issue-opened UnderlineNav-octicon d-none d-sm-inline">
                             <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
                         </svg>
-                        <span className="fs-md">Issues
-                            <span className="ms-2 number px-2 py-1 rounded-circle">{issues.lenght? issues?.length: '2'}</span>
+                        <span className="fs-md">Issues 
+                        {issuesLoading ? (
+                            <FallingLines
+                                color="#306cce"
+                                height="20"
+                                width="20"
+                                visible={true}
+                            />
+                        ) : (
+                            <span className="ms-2">
+                                {issues && issues.length > 0 ? <span className="number px-2 py-1 rounded-circle">issues.length</span> : ""}
+                            </span>
+                        )}
                         </span>
                     </Link>
                 </li>
