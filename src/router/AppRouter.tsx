@@ -11,7 +11,7 @@ import Issues from "../components/Main/ActivitySidbar/views/Issues";
 export default function AppRouter(){
     return (
         <Routes>
-            <Route path="/" >
+            <Route path="/https://gitpulse-byme.netlify.app" >
                 <Route index path={`:username`} element={<Overview />} />
                 <Route path={`:username/repositories`} element={<Repositories />} />
                 <Route  path={`:username/projects`}  element={<Project />}/>
