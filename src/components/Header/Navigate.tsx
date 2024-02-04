@@ -20,6 +20,7 @@ function Navigate() {
         getStarredRepo(username)
         .then((data) => {
             setStarredCount(data.length)
+            console.log('stared',data)
           })
           .catch((error) => {
             console.error("Error fetching Stars:", error);

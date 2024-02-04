@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useProfile } from "../../../hook/useProfile"
-// import { userAchievements } from "../../../api/requestApi";
+import AchievementComponent from "./AchievementComponent";
 
 
 
@@ -66,12 +66,13 @@ export default function ProfileSidbar() {
                     <h2 className="mb-2 fs-5 fw-bold">
                         <a className="text-decoration-none" href="">Achievements</a>
                     </h2>
-                    <div className="d-flex flex-wrap">
+                    <AchievementComponent/>
+                    {/* <div className="d-flex flex-wrap">
                         <a href="/madler?achievement=starstruck&amp;tab=achievements" className="position-relative">
                             <img src="https://github.githubassets.com/images/modules/profile/achievements/starstruck-default.png"  width="64" alt="Achievement: Starstruck" className="shadow-sm"/>
                             <span data-view-component="true" className="number px-2 py-0 bg-warning rounded-pill position-absolute end-0 bottom-0">x4</span>
                         </a>
-                    </div>
+                    </div> */}
                 </div>
             }
         </div>

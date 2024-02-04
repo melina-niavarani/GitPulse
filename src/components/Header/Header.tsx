@@ -15,7 +15,6 @@ function Header() {
             {isSpecificRepositoryRoute || issuesRoute ?
                <Toolbar /> : <Navigate/> 
             }
-            {/* <Navigate/>  */}
         </header>
     )
 }
