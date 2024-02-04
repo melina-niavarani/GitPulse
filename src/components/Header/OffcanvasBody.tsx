@@ -97,7 +97,7 @@ export default function OffcanvasBody() {
                 return (
                     <li key={repo.id} className="d-flex align-items-center fs-md">
                         <span><img alt="avatar-photo" src={porofile_picture} width="16" height="16" className="d-block mx-auto shadow-sm h-auto rounded-circle border"></img></span>
-                        <Link className="mx-2" to={`/${username}/${repo.name}`} >{username}/{repo.name}</Link>
+                        <Link className="mx-2 text-reset" to={`/${username}/${repo.name}`} >{username}/{repo.name}</Link>
                     </li>
                 )
             })}
