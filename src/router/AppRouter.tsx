@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router , Route, Routes } from "react-router-dom";
+import { HashRouter as Router , Route, Routes } from "react-router-dom";
 import Overview from '../components/Main/ActivitySidbar/views/OverviewTab/Overview'
 import Repositories from '../components/Main/ActivitySidbar/views/RepositoriesTab/Repositories' 
 import Project from '../components/Main/ActivitySidbar/views/Project' 
@@ -9,7 +9,7 @@ import SpecificRepository from "../components/Main/ActivitySidbar/views/Specific
 import Issues from "../components/Main/ActivitySidbar/views/Issues";
 
 export default function AppRouter(){
-    
+
     return (
         <Routes >
             <Route path=":username/*">
