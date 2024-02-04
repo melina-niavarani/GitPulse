@@ -127,9 +127,9 @@ export default function SpecificRepository(){
             <Header />
             <main className="container-fluid mx-auto px-4 py-3">
                 <section className="d-flex justify-content-between">
-                    <h3 className="d-flex align-items-center justify-content-center gap-2 d-none d-md-block">
+                    <h3 className="d-flex align-items-center justify-content-center  d-none d-md-block">
                         <img src={porofile_picture} className="rounded-pill" width="24" height='24' alt="avatar-picture" />
-                        <span>{repo_name}</span>
+                        <span className='mx-2'>{repo_name}</span>
                         <span className="btn btn-outline-secondary btn-sm rounded-pill">{repo_details?.visibility}</span>
                     </h3>
                     <ul className="list-unstyled d-flex gap-2">
