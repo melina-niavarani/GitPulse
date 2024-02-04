@@ -11,7 +11,7 @@ function RepositoriesCards(props) {
             <div className="card h-100 mx-1">
                 <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center">
-                        <Link to={`/${username}/${props.title}`} className="card-title text-primary">{props.title}</Link>
+                        <Link to={`/${username}/${props.title}`} className="card-title text-primary text-decoration-none">{props.title}</Link>
                         <a href="#" className="btn btn-outline-secondary btn-sm rounded-pill px-2">{props.status? "Private" : "Public"}</a>
                     </div>
                     <p className="text-secondary fs-small">{props.description}</p>

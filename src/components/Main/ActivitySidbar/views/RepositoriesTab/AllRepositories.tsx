@@ -13,7 +13,7 @@ function AllRepositories(props) {
         <li className=" py-4 border  border-start-0 border-end-0 d-flex justify-content-between align-items-center">
             <div>
                 <div className="d-flex gap-2 align-items-center">
-                    <Link to={`/${username}/${props.title}`} className="fw-bold fs-5 pointer text-primary m-0">{props.title}</Link>
+                    <Link to={`/${username}/${props.title}`} className="fw-bold fs-5 pointer text-primary m-0 text-decoration-none">{props.title}</Link>
                     <span className="rounded-pill px-2 fs-small border border-secondary-subtle">{props.status}</span>
                 </div>
                 <p className="mt-2 mb-3 w-75 text-secondary ">{props.description}</p>
