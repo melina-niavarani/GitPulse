@@ -10,7 +10,7 @@ import Issues from "../components/Main/ActivitySidbar/views/Issues";
 
 export default function AppRouter(){
     return (
-        <Routes>
+        <Routes >
             <Route path=":username/*">
                 <Route index element={<Overview />} />
                 <Route path="repositories" element={<Repositories />} />
