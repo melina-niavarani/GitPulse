@@ -1,5 +1,5 @@
 
-import { HashRouter as Router , Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router , Route, Routes } from "react-router-dom";
 import Overview from '../components/Main/ActivitySidbar/views/OverviewTab/Overview'
 import Repositories from '../components/Main/ActivitySidbar/views/RepositoriesTab/Repositories' 
 import Project from '../components/Main/ActivitySidbar/views/Project' 
@@ -11,7 +11,7 @@ import Issues from "../components/Main/ActivitySidbar/views/Issues";
 export default function AppRouter(){
     return (
         <Routes>
-            <Route path="/" >
+            <Route path="/gitpulse-byme">
                 <Route index path={`:username`} element={<Overview />} />
                 <Route path={`:username/repositories`} element={<Repositories />} />
                 <Route  path={`:username/projects`}  element={<Project />}/>
