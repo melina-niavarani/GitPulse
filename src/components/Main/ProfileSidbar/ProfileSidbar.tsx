@@ -64,7 +64,7 @@ export default function ProfileSidbar() {
                     </ul>
                     <hr></hr>
                     <h2 className="mb-2 fs-5 fw-bold">
-                        <a className="text-decoration-none" href="">Achievements</a>
+                        <a className="text-decoration-none text-reset" href="">Achievements</a>
                     </h2>
                     <AchievementComponent/>
                     {/* <div className="d-flex flex-wrap">
