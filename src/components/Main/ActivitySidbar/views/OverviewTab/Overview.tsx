@@ -75,7 +75,7 @@ export default function Overview(){
                         </ul>
                     </div>
                     <div className="d-flex justify-content-center justify-content-md-between">
-                        <section className="col-10">
+                        <section className="col-12 col-md-10">
                             <div>
                                 <div className="d-flex justify-content-between">
                                     <h5> contributions in the last year</h5>
@@ -85,7 +85,7 @@ export default function Overview(){
                                 </div>
                                 <div className="border rounded p-2 overflow-hidden w-100">
                                     <div className="overflow-scroll">
-                                        <img className="d-block" style={{ width: '60vw' }} src={`https://ghchart.rshah.org/${username}`} alt="Name Your Github chart"/>
+                                        <img className="d-block w-sm-100 w-md-70 " src={`https://ghchart.rshah.org/${username}`} alt="Name Your Github chart"/>
                                     </div>
                                     <p className="fs-small text-secondary m-0 mx-4 mt-2 ">Learn how we count contributions</p>
                                 </div>
