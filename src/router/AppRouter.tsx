@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router , Route, Routes } from "react-router-dom";
+import { HashRouter as Router , Route, Routes } from "react-router-dom";
 import Overview from '../components/Main/ActivitySidbar/views/OverviewTab/Overview'
 import Repositories from '../components/Main/ActivitySidbar/views/RepositoriesTab/Repositories' 
 import Project from '../components/Main/ActivitySidbar/views/Project' 
