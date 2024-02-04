@@ -9,6 +9,7 @@ import SpecificRepository from "../components/Main/ActivitySidbar/views/Specific
 import Issues from "../components/Main/ActivitySidbar/views/Issues";
 
 export default function AppRouter(){
+    
     return (
         <Routes >
             <Route path=":username/*">
