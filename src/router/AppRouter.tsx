@@ -11,14 +11,14 @@ import Issues from "../components/Main/ActivitySidbar/views/Issues";
 export default function AppRouter(){
     return (
         <Routes>
-            <Route path="/">
-                <Route index path={`:username`} element={<Overview />} />
-                <Route path={`:username/repositories`} element={<Repositories />} />
-                <Route  path={`:username/projects`}  element={<Project />}/>
-                <Route  path={`:username/packages`}  element={<Packages />}/>
-                <Route  path={`:username/Stars`}  element={<Stars />}/>
-                <Route  path={`:username/:repository`}  element={<SpecificRepository/>}/>
-                <Route  path={`:username/:repository/issues`}  element={<Issues/>}/>
+            <Route path="/:username">
+                <Route index element={<Overview />} />
+                <Route path={`/repositories`} element={<Repositories />} />
+                <Route  path={`/projects`}  element={<Project />}/>
+                <Route  path={`/packages`}  element={<Packages />}/>
+                <Route  path={`/Stars`}  element={<Stars />}/>
+                <Route  path={`/:repository`}  element={<SpecificRepository/>}/>
+                <Route  path={`/:repository/issues`}  element={<Issues/>}/>
             </Route>   
         </Routes>
     )
