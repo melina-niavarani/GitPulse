@@ -12,7 +12,7 @@ export default function AppRouter(){
 
     return (
         <Routes >
-            <Route path=":username/*">
+            <Route path="/:username/*">
                 <Route index element={<Overview />} />
                 <Route path="repositories" element={<Repositories />} />
                 <Route path="projects" element={<Project />} />
