@@ -74,7 +74,7 @@ export default function Overview(){
                             })}
                         </ul>
                     </div>
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-center justify-content-md-between">
                         <section className="col-10">
                             <div>
                                 <div className="d-flex justify-content-between">
@@ -132,7 +132,7 @@ export default function Overview(){
                                 </p>
                             </div>
                         </section>
-                        <ul className="col-2 list-unstyled">
+                        <ul className="col-2 list-unstyled d-none d-md-block">
                             <li className="rounded py-1 mb-2 " >
                                 <a id="year-link-2024" className="px-3 mb-2 py-2 selected" data-toggle="list" href="#list-2024" role="tab" aria-controls="2024">2024</a>
                             </li>

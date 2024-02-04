@@ -10,7 +10,7 @@ export default function Toolbar(){
     const repo_name = useParams().repository;
 
     const { issues, isLoading:issuesLoading, hasError:issuesError } = useIssues(username, repo_name);
-    const { repository, isLoading:repoDetailsLoading, hasError:repoDetailsError} = useRepositoriesDetails(username, repo_name)
+
 
     console.log(issues.lenght)
 
