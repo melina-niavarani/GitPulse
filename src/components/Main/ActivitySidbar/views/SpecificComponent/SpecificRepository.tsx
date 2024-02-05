@@ -67,7 +67,7 @@ export default function SpecificRepository(){
           .then((data) => {
             setRepositoryDetails((prevDetails) => ({
               ...prevDetails,
-              numberOfCommits: data,
+              numberOfCommits: data.length ,
             }));
           })
           .catch((error) => {

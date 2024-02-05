@@ -132,6 +132,7 @@ export async function getSearchinRepositories (code: any){
   })
   return searchResult
 }
+
 export async function getSearchinUsers (query: string){
   const searchResult = await octokit.request('GET /search/users', {
     q: query,
@@ -194,9 +195,8 @@ export async function getReadME(owner:string, repo:string) {
       console.error('Error fetching repository readme:', error.message);
     }
   }
+
 // API call for number of commits //
-
-
 export async function getNumberOfCommits(owner:string, repo:string){
   const commitUrl = `https://api.github.com/repos/${owner}/${repo}/commits`;
 
@@ -207,9 +207,44 @@ export async function getNumberOfCommits(owner:string, repo:string){
       throw new Error(`Failed to fetch data: ${response.status} - ${response.statusText}`);
     }
     const commits = await response.json();
-    return commits.length;
+    return commits;
   } catch (error) {
     console.error('Error fetching repository commits number:', error.message);
   }
 
 }
+
+export async function getContributions(username) {
+  const query = `
+    query {
+      user(login: "${username}") {
+        contributionsCollection {
+          contributionCalendar {
+            totalContributions
+          }
+        }
+      }
+    }
+  `;
+  try {
+    const response = await fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${'REACT_APP_GITHUB_TOKEN'}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`GitHub API request failed: ${response.statusText}`);
+    }
+    const data = await response.json();
+    console.log("data",data.data)
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching contribution:", error);
+    throw error; 
+  }
+}
+
