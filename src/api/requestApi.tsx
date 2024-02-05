@@ -11,7 +11,6 @@ export interface UserInfo {
 }
 // get new Token:  https://github.com/settings/tokens/new?scopes=repo
 
-// const personal_token = "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"
 const personal_token = process.env.REACT_APP_GITHUB_TOKEN;
 
 const octokit = new Octokit({
@@ -45,20 +44,6 @@ export async function getStarredRepo(owner:string){
     console.error('Error fetching starred repositories:', error.message);
   }
 }
-
-
-// API call For user achievements
-// export async function userAchievements(username:string){
-//   const user_repos = await octokit.request('GET /users/{username}/repos', {
-//     username: username,
-//     headers: {
-//       'X-GitHub-Api-Version': '2022-11-28'
-//     }
-//   })
-//   console.log('Repositories Data',user_repos)
-//   return user_repos.data;
-// }
-
 
 export interface RepositoriesInfo {
   id: number;
