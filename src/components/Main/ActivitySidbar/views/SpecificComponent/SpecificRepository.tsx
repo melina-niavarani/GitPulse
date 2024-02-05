@@ -196,27 +196,33 @@ export default function SpecificRepository(){
                 <body className="d-flex flex-md-row flex-column-reverse align-items-center">
                     <section className="col-12 col-md-8">
                         <div className="d-flex justify-content-between">
-                            <div>
+                            <div className='d-flex align-items-center'>
                                 <button className="btn btn-outline-secondary">
-                                    <svg aria-hidden="true" focusable="false" role="img" className="octicon octicon-git-branch" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                    <svg aria-hidden="true" focusable="false" role="img" className="octicon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                                         <path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
                                     </svg>
                                     <span className="mx-2">main</span>
                                 </button>
-                                <a className="mx-4" href="#">
-                                    <svg aria-hidden="true" focusable="false" role="img" className="octicon octicon-git-branch" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                <a className="mx-4 d-none  d-md-flex" href="#">
+                                    <svg aria-hidden="true" focusable="false" role="img" className="octicon me-1 mt-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                                         <path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
                                     </svg>
+                                    <span className='d-none d-lg-block'>
+                                        Branch
+                                    </span>
                                 </a>
-                                <a href="#">
-                                    <svg aria-hidden="true" focusable="false" role="img" className="octicon octicon-tag" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                <a href="#" className='d-none d-md-flex'>
+                                    <svg aria-hidden="true" focusable="false" role="img" className="octicon me-1 mt-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                                         <path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
                                     </svg>
+                                    <span className='d-none d-lg-block'>
+                                        Tags
+                                    </span>
                                 </a>
                             </div>
                             <div>
-                                <button className="btn btn-outline-secondary">Go to file</button>
-                                <button className="btn btn-outline-secondary mx-2">
+                                <button className="btn btn-outline-secondary d-none d-md-inline">Go to file</button>
+                                <button className="btn btn-outline-secondary mx-2 d-none d-md-inline">
                                     <svg aria-hidden="true" focusable="false" role="img" className="octicon octicon-plus" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                                         <path d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"></path>
                                     </svg>
