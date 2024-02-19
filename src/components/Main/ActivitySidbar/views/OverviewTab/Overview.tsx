@@ -2,7 +2,7 @@ import Header from "../../../../Header/Header";
 import RepositoriesCards from "./RepositoriesCards";
 import ProfileSidbar from "../../../ProfileSidbar/ProfileSidbar";
 
-import { useRepositories } from "../../../../../hook/useRepositories";
+import { useRepositories } from "../../../../../hooks/useRepositories";
 import { useParams } from "react-router-dom";
 
 import * as moment from "moment";
@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getNumberOfCommits } from "../../../../../api/requestApi";
 
+const REPOSITORIES_COUNT = 6
 export default function Overview(){
     const username = useParams().username;
     const { repository, isLoading, hasError } = useRepositories(username);
@@ -22,7 +23,7 @@ export default function Overview(){
     const [displayedCommits, setDisplayedCommits] = useState(2);
     const [contribution, setContribution] = useState("")
 
-    const displayedRepositories = repository? repository.slice(0, 6) : [];
+    const displayedRepositories = repository? repository.slice(0, REPOSITORIES_COUNT) : [];
 
     const currentMonthAndYear = moment().format("MMMM YYYY");
      
@@ -36,8 +37,6 @@ export default function Overview(){
             console.error("Error fetching contribution:", error);
         });
   }, [username]);
-
-console.log(repository)
 
 const handleYearSelect = async (year) => {
     setSelectedYear(year);

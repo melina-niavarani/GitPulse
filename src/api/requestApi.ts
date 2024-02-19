@@ -26,7 +26,7 @@ export async function requestUserData(username:string){
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
-  console.log('userinfo', user_info)
+  // console.log('userinfo', user_info)
   return user_info.data;
 }
 
@@ -64,7 +64,7 @@ export async function requestRepositories(username:string){
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
-  console.log('Repositories Data',user_repos)
+  // console.log('Repositories Data',user_repos)
   return user_repos.data;
 }
 
@@ -89,7 +89,7 @@ export async function requestRepositoriesDetails(username: string, repo_name: st
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
-  console.log("Repo Details", repository_details)
+  // console.log("Repo Details", repository_details)
   return repository_details;
 }
 
@@ -114,7 +114,7 @@ export async function requestIssues (username: string, repo_name: string){
       }
     });
 
-    console.log("requestIssues is", response.data);
+    // console.log("requestIssues is", response.data);
     return response.data;
   } catch (error) {
     console.error("Error in requestIssues:", error);
@@ -240,7 +240,7 @@ export async function getContributions(username) {
       throw new Error(`GitHub API request failed: ${response.statusText}`);
     }
     const data = await response.json();
-    console.log("data",data.data)
+    // console.log("data",data.data)
     return data.data;
   } catch (error) {
     console.error("Error fetching contribution:", error);

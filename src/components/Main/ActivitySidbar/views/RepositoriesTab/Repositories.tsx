@@ -3,7 +3,7 @@ import AllRepositories from "./AllRepositories"
 import ProfileSidbar from "../../../ProfileSidbar/ProfileSidbar";
 import SearchComponent from "./SearchComponent";
 
-import { useRepositories } from "../../../../../hook/useRepositories"
+import { useRepositories } from "../../../../../hooks/useRepositories"
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 

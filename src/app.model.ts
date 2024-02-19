@@ -1,28 +1,28 @@
 import { UserInfo, RepositoriesInfo, RepositoriyDetails, issuessInfo } from "./api/requestApi";
 
-export class Action {
+export interface Action {
     type: string;
     payload: any
 }
 
-export class State {
+export interface State {
     user: UserInfo; 
     isLoading: boolean;
     hasError: boolean
 }
-export class Repo {
+export interface Repo {
     repository: RepositoriesInfo; 
     isLoading: boolean;
     hasError: boolean
 }
 
-export class RepoDetails {
+export interface RepoDetails {
     repository: RepositoriyDetails; 
     isLoading: boolean;
     hasError: boolean
 }
 
-export class issues {
+export interface issues {
     issues: issuessInfo; 
     isLoading: boolean;
     hasError: boolean

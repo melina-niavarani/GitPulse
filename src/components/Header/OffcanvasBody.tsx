@@ -1,4 +1,4 @@
-import { useRepositories } from "../../hook/useRepositories"
+import { useRepositories } from "../../hooks/useRepositories"
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 

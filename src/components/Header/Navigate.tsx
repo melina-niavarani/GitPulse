@@ -1,6 +1,6 @@
 // import { username } from "../../api/requestApi"
 import { Link, Outlet ,useParams, useLocation } from "react-router-dom"
-import { useProfile } from "../../hook/useProfile";
+import { useProfile } from "../../hooks/useProfile";
 import { getStarredRepo } from "../../api/requestApi";
 
 import { useEffect, useState } from "react";
@@ -13,14 +13,12 @@ function Navigate() {
     const { user, isLoading, hasError } = useProfile(username);
 
     const [ starredCount, setStarredCount ] = useState(0)
-   
-    
 
     useEffect(()=>{
         getStarredRepo(username)
         .then((data) => {
             setStarredCount(data.length)
-            console.log('stared',data)
+            // console.log('stared',data)
           })
           .catch((error) => {
             console.error("Error fetching Stars:", error);

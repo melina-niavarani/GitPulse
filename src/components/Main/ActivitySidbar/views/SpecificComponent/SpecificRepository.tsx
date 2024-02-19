@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import Header from "../../../../Header/Header";
 import CodeDropdown from './CodeDropdown';
 
-import { useRepositoriesDetails } from "../../../../../hook/useRepoDetails"
+import { useRepositoriesDetails } from "../../../../../hooks/useRepoDetails"
 import { useParams } from "react-router-dom";
 import { getLanguages, getReadME , getNumberOfCommits, getRepositoryContent} from "../../../../../api/requestApi";
 import { useEffect, useState } from "react";
@@ -27,8 +27,6 @@ export default function SpecificRepository(){
 
     const repo_details = repository?.data
     const porofile_picture = repo_details?.owner.avatar_url;
-    console.log("repo_details",repo_details)
-
    
 
     useEffect(() => {

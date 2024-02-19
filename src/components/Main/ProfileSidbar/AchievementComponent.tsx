@@ -18,7 +18,6 @@ export default function AchievementComponent() {
         .then(repositories => {
           const mostStarredRepo = repositories.reduce((maxStarsRepo, repo) => (repo.stargazers_count > maxStarsRepo.stargazers_count ? repo : maxStarsRepo), repositories[0]);
           if (mostStarredRepo.stargazers_count > 0 && !completedTasks.includes('task4')) {
-            console.log(mostStarredRepo.stargazers_count)
             setCompletedTask([...completedTasks, 'task4']);
           }
         })
@@ -30,7 +29,6 @@ export default function AchievementComponent() {
         .then(response => response.json())
         .then(mergedWithoutReview => {
           if (mergedWithoutReview.total_count > 0 && !completedTasks.includes('task1')) {
-            console.log(mergedWithoutReview.total_count)
             setCompletedTask([...completedTasks, 'task1']);
           }
         })
@@ -42,7 +40,6 @@ export default function AchievementComponent() {
         .then(response => response.json())
         .then(mergedPullRequests => {
           if (mergedPullRequests.total_count > 0 && !completedTasks.includes('task2')) {
-            console.log(mergedPullRequests.total_count)
             setCompletedTask([...completedTasks, 'task2']);
           }
         })

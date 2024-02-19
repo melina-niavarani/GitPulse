@@ -1,5 +1,5 @@
 import Header from "../../../Header/Header";
-import { useIssues } from "../../../../hook/useIssues"
+import { useIssues } from "../../../../hooks/useIssues"
 import { useParams } from "react-router-dom";
 
 import { calculateUpdateLabel } from "../../../../Shared/sharedFunctions";

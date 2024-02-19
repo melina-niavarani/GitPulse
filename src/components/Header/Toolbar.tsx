@@ -1,7 +1,7 @@
 import { Link, Outlet, useParams } from "react-router-dom";
-import { useRepositoriesDetails } from "../../hook/useRepoDetails"
+import { useRepositoriesDetails } from "../../hooks/useRepoDetails"
 
-import { useIssues } from "../../hook/useIssues";
+import { useIssues } from "../../hooks/useIssues";
 
 import { FallingLines } from "react-loader-spinner";
 
@@ -10,9 +10,6 @@ export default function Toolbar(){
     const repo_name = useParams().repository;
 
     const { issues, isLoading:issuesLoading, hasError:issuesError } = useIssues(username, repo_name);
-
-
-    console.log(issues.lenght)
 
     return(
         <div>

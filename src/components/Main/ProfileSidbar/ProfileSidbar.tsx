@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useProfile } from "../../../hook/useProfile"
+import { useProfile } from "../../../hooks/useProfile"
 import AchievementComponent from "./AchievementComponent";
 
 

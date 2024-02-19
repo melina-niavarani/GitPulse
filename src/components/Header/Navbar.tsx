@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useProfile } from "../../hook/useProfile";
+import { useProfile } from "../../hooks/useProfile";
 import { useState } from "react";
 import { getSearchinRepositories, getSearchinUsers  } from "../../api/requestApi";
 import { Link } from "react-router-dom";
